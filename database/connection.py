@@ -1,11 +1,4 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, declarative_base
-from sqlalchemy import text
-import os
-
-# Cadena de conexión a SQL Server
-
+# database/connection.py
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 import os
@@ -15,8 +8,8 @@ SQLSERVER_URL = os.getenv(
     "mssql+pyodbc://localhost?driver=ODBC+Driver+17+for+SQL+Server&trusted_connection=yes&database=P1SW"
 )
 
-engine = create_engine(SQLSERVER_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+engine = create_engine(SQLSERVER_URL, future=True)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
 Base = declarative_base()
 
 class DBExecutor:

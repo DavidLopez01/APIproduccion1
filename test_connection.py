@@ -4,11 +4,11 @@ from sqlalchemy import text
 def test_connection():
     try:
         with engine.connect() as conn:
-            result = conn.execute(text("SELECT GETDATE()"))
-            fecha = result.scalar_one()  # Obtiene el valor de la primera columna
-            print("✅ Conexión exitosa! Fecha en SQL Server:", fecha)
+            result = conn.execute(text("SELECT DB_NAME()"))
+            db_name = result.scalar()
+            print(f"✅ Conectado a la base de datos: {db_name}")
     except Exception as e:
-        print("❌ Error en la conexión:", e)
+        print(f"❌ Error al conectar: {e}")
 
 if __name__ == "__main__":
     test_connection()
